@@ -49,7 +49,7 @@ function P5Canvas() {
     const [selectedSketchIndex, setSelectedSketchIndex] = useState(-1);
 
     const embeddedHTML = `<html><head></head><body><script src="https://cdn.jsdelivr.net/npm/p5@1.0.0-alpha.9/lib/p5.js"></script><script src="sketch.js"></script></body></html>`;
-
+    console.log(import.meta.env.PROD)
     useEffect(() => {
         hljs.highlightAll();
     }, [embeddedHTML]);
