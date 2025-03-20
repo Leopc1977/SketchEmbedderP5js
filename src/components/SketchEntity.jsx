@@ -3,8 +3,6 @@ import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import hljs from 'highlight.js';
 
-import "highlight.js/styles/github.css";
-
 const SketchContainer = styled.div`
     display: flex;
     flex-direction: row;
@@ -84,7 +82,7 @@ function SketchEntity(props) {
                     height={sketch.height}
                 >
                     <pre>
-                        <code className='language-javascript' >
+                        <code className='language-javascript'>
                             {sketch.function.toString()}
                         </code>
                     </pre>

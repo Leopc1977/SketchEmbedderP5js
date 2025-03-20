@@ -22,28 +22,19 @@ const TitleStyled = styled.h1`
     font-size: 24px;
     line-height: 1.25;
     font-weight: 600;
-    font-family: Roboto, sans-serif;
     align-self: center;
-`;
-
-const QuitButtonStyled = styled.button`
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 30px;
-    height: 30px;
-    padding: 0px;
-    margin: 0px;
-
-    background-color: #232428;
-    border: none;
-    border-radius: 5px;
-    color: #ffffff;
-    cursor: pointer;
 `;
 
 const DeleteButtonStyled = styled.button`
     cursor: pointer;
+`;
+
+const PropertiesContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    width: 100%;
 `;
 
 function ConfigPanel(props) {
@@ -56,23 +47,23 @@ function ConfigPanel(props) {
     
     const selectedSketch = useMemo(() => sketchList[selectedSketchIndex], [selectedSketchIndex, sketchList]);
 
+    const deleteSketch = () => {
+        setSelectedSketchIndex(null);
+        setSketchList(sketchList => sketchList.filter((_, index) => index !== selectedSketchIndex));
+    };
+
     return (
         <ConfigPanelContainer>
             <TitleStyled>
                 Config
             </TitleStyled>
-        
-            <QuitButtonStyled onClick={() => setSelectedSketchIndex(null)}>X</QuitButtonStyled>
-
-            Width <input type="range" min="0" max="500" value={selectedSketch.width} onChange={(e) => setSketchList(sketchList => sketchList.map((sketch, index) => index === selectedSketchIndex ? {...sketch, width: e.target.value} : sketch))}/>
-            Height <input type="range" min="0" max="500" value={selectedSketch.height} onChange={(e) => setSketchList(sketchList => sketchList.map((sketch, index) => index === selectedSketchIndex ? {...sketch, height: e.target.value} : sketch))}/>
-            HasSnippetCode <input type="checkbox" checked={selectedSketch.hasSnippetCode} onChange={(e) => setSketchList(sketchList => sketchList.map((sketch, index) => index === selectedSketchIndex ? {...sketch, hasSnippetCode: e.target.checked} : sketch))}/>
-        
+            <PropertiesContainer>
+                Width <input type="range" min="0" max="500" value={selectedSketch.width} onChange={(e) => setSketchList(sketchList => sketchList.map((sketch, index) => index === selectedSketchIndex ? {...sketch, width: e.target.value} : sketch))}/>
+                Height <input type="range" min="0" max="500" value={selectedSketch.height} onChange={(e) => setSketchList(sketchList => sketchList.map((sketch, index) => index === selectedSketchIndex ? {...sketch, height: e.target.value} : sketch))}/>
+                HasSnippetCode <input type="checkbox" checked={selectedSketch.hasSnippetCode} onChange={(e) => setSketchList(sketchList => sketchList.map((sketch, index) => index === selectedSketchIndex ? {...sketch, hasSnippetCode: e.target.checked} : sketch))}/>
+            </PropertiesContainer>
             <DeleteButtonStyled
-                onPointerDown={() => {
-                    setSelectedSketchIndex(null);
-                    setSketchList(sketchList => sketchList.filter((_, index) => index !== selectedSketchIndex));
-                }}
+                onPointerUp={deleteSketch}
             >
                 Delete sketch
             </DeleteButtonStyled>
