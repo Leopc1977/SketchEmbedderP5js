@@ -4,8 +4,8 @@ import { UploadOutlined } from '@ant-design/icons';
 
 const AddContainer = styled.div`
     display: flex;
-    gap: 10px;
     align-items: center;
+    gap: 10px;
 `;
 
 function Add(props) {
@@ -19,6 +19,7 @@ function Add(props) {
     return (
         <AddContainer>
             <p>Upload a P5.js sketch</p>
+
             <Upload beforeUpload={beforeUpload} accept=".js" showUploadList={false}>
                 <Button icon={<UploadOutlined />}>Sélectionner un fichier</Button>
             </Upload>

@@ -34,8 +34,9 @@ const DeleteButtonStyled = styled.button`
 const PropertiesContainer = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 10px;
     align-items: center;
+    gap: 10px;
+
     width: 100%;
 `;
 
@@ -43,6 +44,7 @@ const CloseButton = styled(Button)`
     position: absolute;
     top: 10px;
     right: 10px;
+    
     background-color: transparent;
     border: none;
     color: white;

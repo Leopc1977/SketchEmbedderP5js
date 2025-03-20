@@ -34,10 +34,9 @@ const SampleCodeContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 10px;
 
     width: 100%;
-
-    gap: 10px;
 `;
 
 function Preview(props) {
@@ -80,11 +79,12 @@ function Preview(props) {
         }
     };
 
+    // Import all snippets code for demo
     useEffect(() => {
         const filesName = ["a.js", "b.js", "c.js"];
 
         filesName.forEach((fileName) => {
-            import(`../../snippetsCode/${fileName}`).then((module) => {
+            import(`./snippetsCode/${fileName}`).then((module) => {
                 setSketchList((prev) => [...prev,
                     new Sketch(
                         module.default
