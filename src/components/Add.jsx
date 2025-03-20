@@ -1,6 +1,6 @@
+import styled from 'styled-components';
 import { Upload, Button } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
-import styled from 'styled-components';
 
 const AddContainer = styled.div`
     display: flex;

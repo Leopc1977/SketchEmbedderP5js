@@ -1,13 +1,19 @@
+import { useEffect } from 'react';
+
+import styled from 'styled-components';
+import hljs from 'highlight.js';
+import { Divider } from 'antd';
+
 import SketchEntity from './SketchEntity';
 import Add from './Add';
+
 import Sketch from '../class/Sketch';
-import styled from 'styled-components';
-import { useEffect } from 'react';
 
 const PreviewContainer = styled.div`
     display: flex;
     flex: 1;
     flex-direction: column;
+
     width: fit-content;
     height: fit-content;
     min-height: 100%;
@@ -17,10 +23,21 @@ const PreviewContainer = styled.div`
 const SketchEntityListContainer = styled.div`
     display: flex;
     flex-direction: column;
+    flex: 1;
+
     width: 100%;
     height: 100%;
     min-height: 100%;
-    flex: 1;
+`;
+
+const SampleCodeContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
+
+    gap: 10px;
 `;
 
 function Preview(props) {
@@ -34,34 +51,32 @@ function Preview(props) {
     const handleFileChange = (event) => {
         const file = event.target.files[0];
 
-        if (file) {          
-            if (file.type === "application/javascript" || file.name.endsWith('.js')) {
-                const reader = new FileReader();
+        if (file?.type === "application/javascript" || file?.name.endsWith('.js')) {
+            const reader = new FileReader();
 
-                reader.onload = (e) => {
-                    const sketchCode = e.target.result;
+            reader.onload = (e) => {
+                const sketchCode = e.target.result;
 
-                    try {        
-                        const createSketchFunction = new Function('p', 'return ' + sketchCode);
-        
-                        setSketchList((prev) => [...prev,
-                            new Sketch(
-                                createSketchFunction()
-                            )
-                        ]);
-                    } catch (error) {
-                        console.error("Erreur lors de l'exécution du sketch:", error);
-                        alert(`Erreur lors de l'exécution du sketch: ${error.message}`);
-                    }
-                };
-                reader.onerror = (e) => {
-                    console.error("Erreur de lecture du fichier:", e);
-                    alert("Erreur de lecture du fichier");
-                };
-                reader.readAsText(file);
-            } else {
-                alert("Veuillez sélectionner un fichier JavaScript (.js)");
-            }
+                try {
+                    const createSketchFunction = new Function('p', 'return ' + sketchCode);
+    
+                    setSketchList((prev) => [...prev,
+                        new Sketch(
+                            createSketchFunction()
+                        )
+                    ]);
+                } catch (error) {
+                    console.error("Erreur lors de l'exécution du sketch:", error);
+                    alert(`Erreur lors de l'exécution du sketch: ${error.message}`);
+                }
+            };
+            reader.onerror = (e) => {
+                console.error("Erreur de lecture du fichier:", e);
+                alert("Erreur de lecture du fichier");
+            };
+            reader.readAsText(file);
+        } else {
+            alert("Veuillez sélectionner un fichier JavaScript (.js)");
         }
     };
 
@@ -77,11 +92,40 @@ function Preview(props) {
                 ]);
             });
         });
+
+        hljs.highlightAll();
     }, []);
 
     return (
         <PreviewContainer>
             <Add handleFileChange={handleFileChange} />
+            
+            <SampleCodeContainer>
+                <p>Functions must look like this:</p>
+                <pre><code className='language-javascript'>
+{`export default function sketch(p) {
+  let x = 50;
+  let y = 50;
+
+  p.setup = () => {
+    p.createCanvas(400, 400);
+  };
+
+  p.draw = () => {
+    p.background(200);
+    p.ellipse(x, y, 50, 50);
+    x += 1;
+  };
+}`}
+                </code></pre>
+            </SampleCodeContainer>
+
+            <p>Click on a sketch to open the config panel.</p>
+            <Divider
+                style={{
+                    borderColor: 'black ',
+                }}
+            />
 
             <SketchEntityListContainer>
                 {sketchList.map((sketch, index) => (

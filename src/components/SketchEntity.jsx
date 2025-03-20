@@ -1,15 +1,18 @@
-import p5 from 'p5'
 import { useEffect, useRef } from 'react';
+
 import styled from 'styled-components';
 import hljs from 'highlight.js';
+
+import p5 from 'p5'
 
 const SketchContainer = styled.div`
     display: flex;
     flex-direction: row;
+
     height: ${(props) => props.height}px;
-        box-sizing: border-box
-        border: ${(props) => props.isSelected ? '2px solid #00ff00' : '2px solidrgb(255, 0, 0)'};
-    
+
+    box-sizing: border-box
+    border: ${(props) => props.isSelected ? '2px solid #00ff00' : '2px solidrgb(255, 0, 0)'};
 `;
 
 const SketchStyled = styled.div`
@@ -44,7 +47,7 @@ function SketchEntity(props) {
         setSelectedSketchIndex
     } = props;
 
-    const _div = useRef();
+    const _canvasDiv = useRef();
     const _canvas = useRef();
 
     if (_canvas.current) {
@@ -53,28 +56,30 @@ function SketchEntity(props) {
     }
 
     useEffect(() => {
-        new p5(sketch.function, _div.current);
+        new p5(sketch.function, _canvasDiv.current);
 
-        _canvas.current = _div.current.firstChild;
+        _canvas.current = _canvasDiv.current.firstChild;
     }, []);
 
     useEffect(() => {
-        if (!sketch.hasSnippetCode) {
-            return;
-        }
+        if (!sketch.hasSnippetCode) return;
     
         hljs.highlightAll();
     }, [sketch.hasSnippetCode]);
+
+    const selectSketch = () => {
+        selectedSketchIndex === -1 || selectedSketchIndex !== index ? setSelectedSketchIndex(index) : setSelectedSketchIndex(-1);
+    };
 
     return (
         <SketchContainer
             height={sketch.height}
         >
             <SketchStyled
-                ref={_div}
+                ref={_canvasDiv}
 
                 isSelected={index === selectedSketchIndex}
-                onPointerDown={() => selectedSketchIndex === null || selectedSketchIndex !== index ? setSelectedSketchIndex(index) : setSelectedSketchIndex(null)}   
+                onPointerDown={selectSketch}
             />
             {sketch.hasSnippetCode && (
                 <SnippetCodeStyled

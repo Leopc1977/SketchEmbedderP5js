@@ -1,4 +1,6 @@
 import { useMemo } from "react";
+
+import { Button } from "antd";
 import styled from "styled-components";
 
 const ConfigPanelContainer = styled.div`
@@ -37,6 +39,15 @@ const PropertiesContainer = styled.div`
     width: 100%;
 `;
 
+const CloseButton = styled(Button)`
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    color: white;
+`;
+
 function ConfigPanel(props) {
     const { 
         setSelectedSketchIndex,
@@ -48,8 +59,12 @@ function ConfigPanel(props) {
     const selectedSketch = useMemo(() => sketchList[selectedSketchIndex], [selectedSketchIndex, sketchList]);
 
     const deleteSketch = () => {
-        setSelectedSketchIndex(null);
+        setSelectedSketchIndex(-1);
         setSketchList(sketchList => sketchList.filter((_, index) => index !== selectedSketchIndex));
+    };
+
+    const closeConfigPanel = () => {
+        setSelectedSketchIndex(-1);
     };
 
     return (
@@ -57,6 +72,12 @@ function ConfigPanel(props) {
             <TitleStyled>
                 Config
             </TitleStyled>
+            <CloseButton
+                onPointerUp={closeConfigPanel}
+            >
+                X
+            </CloseButton>
+
             <PropertiesContainer>
                 Width <input type="range" min="0" max="500" value={selectedSketch.width} onChange={(e) => setSketchList(sketchList => sketchList.map((sketch, index) => index === selectedSketchIndex ? {...sketch, width: e.target.value} : sketch))}/>
                 Height <input type="range" min="0" max="500" value={selectedSketch.height} onChange={(e) => setSketchList(sketchList => sketchList.map((sketch, index) => index === selectedSketchIndex ? {...sketch, height: e.target.value} : sketch))}/>
