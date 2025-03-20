@@ -11,7 +11,7 @@ const SketchContainer = styled.div`
 
     height: ${(props) => props.height}px;
 
-    box-sizing: border-box
+    box-sizing: border-box;
     border: ${(props) => props.isSelected ? '2px solid #00ff00' : '2px solidrgb(255, 0, 0)'};
 `;
 

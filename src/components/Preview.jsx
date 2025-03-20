@@ -84,7 +84,8 @@ function Preview(props) {
         const filesName = ["a.js", "b.js", "c.js"];
 
         filesName.forEach((fileName) => {
-            import(`./snippetsCode/${fileName}`).then((module) => {
+            const path = import.meta.env.VITE_PROD === 'true' ? `./snippetsCode/${fileName}` : `../../snippetsCode/${fileName}`;
+            import(path).then((module) => {
                 setSketchList((prev) => [...prev,
                     new Sketch(
                         module.default
