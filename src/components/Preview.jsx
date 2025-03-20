@@ -84,7 +84,7 @@ function Preview(props) {
         const filesName = ["a.js", "b.js", "c.js"];
 
         filesName.forEach((fileName) => {
-            const path = import.meta.env.PROD ? `./snippetsCode/${fileName}` : `../../snippetsCode/${fileName}`;
+            const path = `../snippetsCode/${fileName}`;
             import(path).then((module) => {
                 setSketchList((prev) => [...prev,
                     new Sketch(
