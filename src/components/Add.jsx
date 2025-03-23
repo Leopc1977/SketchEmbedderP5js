@@ -13,6 +13,7 @@ function Add(props) {
 
     const beforeUpload = (file) => {
         handleFileChange({ target: { files: [file] } });
+
         return false;
     };
 

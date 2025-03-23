@@ -123,6 +123,7 @@ function Preview(props) {
             </SampleCodeContainer>
 
             <p>Click on a sketch to open the config panel.</p>
+
             <Divider
                 style={{
                     borderColor: 'black ',

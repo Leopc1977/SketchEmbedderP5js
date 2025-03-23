@@ -48,7 +48,7 @@ function P5Canvas() {
     const [sketchList, setSketchList] = useState([]);
     const [selectedSketchIndex, setSelectedSketchIndex] = useState(-1);
 
-    const embeddedHTML = `<html><head></head><body><script src="https://cdn.jsdelivr.net/npm/p5@1.0.0-alpha.9/lib/p5.js"></script><script src="sketch.js"></script></body></html>`;
+    const embeddedHTML = `<script src="https://leopc1977.github.io/SketchEmbedderP5js/public/embedCode/a.js"></script>`;
 
     useEffect(() => {
         hljs.highlightAll();
@@ -59,10 +59,10 @@ function P5Canvas() {
             <TitleStyled>Sketch Embedder P5.js</TitleStyled>
 
             <SubTitleStyled>
-                Export your sketchs to a standalone HTML file
+                Export your sketchs to a standalone script file.
             </SubTitleStyled>
 
-            <p>Click on the button below to copy the HTML code to your clipboard.</p>
+            <p>Click on the button below to copy the script to your clipboard.</p>
             <EmbeddedHTMLStyled
                 onPointerDown={() => navigator.clipboard.writeText(embeddedHTML)}
             >

@@ -10,7 +10,7 @@ const SketchContainer = styled.div`
     flex-direction: row;
 
     height: ${(props) => props.height}px;
-    `;
+`;
     
 const SketchStyled = styled.div`
     border: ${(props) => props.isSelected ? '2px solid #00ff00' : '2px solidrgb(255, 0, 0)'};
