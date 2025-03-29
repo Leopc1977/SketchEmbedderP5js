@@ -63,6 +63,7 @@ function P5Canvas() {
             </SubTitleStyled>
 
             <p>Click on the button below to copy the script to your clipboard.</p>
+            <p>This script is an exemple and does not fit the layout of your sketchs.</p>
             <EmbeddedHTMLStyled
                 onPointerDown={() => navigator.clipboard.writeText(embeddedHTML)}
             >
